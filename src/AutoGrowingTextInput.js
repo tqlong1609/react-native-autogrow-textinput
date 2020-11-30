@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import ReactNative, {TextInput, Platform, NativeModules} from 'react-native';
+import React, { Component } from 'react';
+import ReactNative, { TextInput, Platform, NativeModules } from 'react-native';
 import PropTypes from 'prop-types';
 
 const ANDROID_PLATFORM = (Platform.OS === 'android');
@@ -13,7 +13,7 @@ export default class AutoGrowingTextInput extends Component {
   }
 
   componentDidMount() {
-    if(this.shouldApplyNativeSettings()) {
+    if (this.shouldApplyNativeSettings()) {
       const reactTag = this.textInputReactTag();
       if (reactTag) {
         AutoGrowTextInputManager.applySettingsForInput(reactTag, {
@@ -25,7 +25,7 @@ export default class AutoGrowingTextInput extends Component {
   }
 
   componentWillUnmount() {
-    if(this.shouldApplyNativeSettings()) {
+    if (this.shouldApplyNativeSettings()) {
       const reactTag = this.textInputReactTag();
       if (reactTag) {
         AutoGrowTextInputManager.performCleanupForInput(reactTag);
@@ -47,8 +47,9 @@ export default class AutoGrowingTextInput extends Component {
     return (
       <TextInput
         multiline
+        maxLength={this.props.maxLength}
         {...this.props} {...this.style}
-        style={[this.props.style, {height: 'auto'}]}
+        style={[this.props.style, { height: 'auto' }]}
         ref={(r) => { this._textInput = r; }}
       />
     );
@@ -59,7 +60,7 @@ export default class AutoGrowingTextInput extends Component {
   }
 
   resetHeightToMin() {
-    this.setNativeProps({text: ''});
+    this.setNativeProps({ text: '' });
   }
 
   clear() {
